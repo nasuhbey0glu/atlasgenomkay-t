@@ -35,14 +35,14 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
         .navigation-btn {
-            background-color: #0d6efd;
+            background-color: rgba(3,87,131,255);
             border: none;
             padding: 10px 30px;
             font-size: 1.2rem;
             margin: 0 10px;
         }
         .navigation-btn:hover {
-            background-color: #0b5ed7;
+            background-color: rgba(2,67,101,255);
         }
         h1 {
             color: rgba(3,87,131,255);
@@ -78,33 +78,19 @@
 
     <script>
         let currentImageIndex = 0;
-        let images = [];
-
-        // images klasöründeki fotoğrafları yükle
-        async function loadImages() {
-            try {
-                const response = await fetch('images/');
-                const text = await response.text();
-                const parser = new DOMParser();
-                const html = parser.parseFromString(text, 'text/html');
-                const links = html.getElementsByTagName('a');
-                
-                images = Array.from(links)
-                    .map(link => link.href)
-                    .filter(href => /\.(jpg|jpeg|png|gif)$/i.test(href));
-                
-                if (images.length > 0) {
-                    showImage(0);
-                } else {
-                    document.getElementById('mainImage').src = 'placeholder.jpg';
-                    document.getElementById('imageCounter').textContent = 'Fotoğraf bulunamadı';
-                }
-            } catch (error) {
-                console.error('Fotoğraflar yüklenirken hata oluştu:', error);
-                document.getElementById('mainImage').src = 'placeholder.jpg';
-                document.getElementById('imageCounter').textContent = 'Fotoğraflar yüklenemedi';
-            }
-        }
+        // Görselleri statik olarak tanımla
+        const images = [
+            'images/1.jpeg',
+            'images/2.png',
+            'images/3.jpg',
+            'images/4.jpg',
+            'images/5.jpg',
+            'images/6.jpg',
+            'images/7.jpg',
+            'images/8.jpg',
+            'images/9.jpg',
+            'images/10.jpg'
+        ];
 
         function showImage(index) {
             if (images.length === 0) return;
@@ -132,8 +118,8 @@
             }
         });
 
-        // Sayfa yüklendiğinde fotoğrafları yükle
-        loadImages();
+        // Sayfa yüklendiğinde ilk fotoğrafı göster
+        showImage(0);
     </script>
 </body>
 </html>
