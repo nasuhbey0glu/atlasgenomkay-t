@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATLAS GENOM KULÜBÜ - QR Kodlar</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: rgba(3,87,131,255);
+        }
+        .logo-container {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .logo {
+            max-width: 200px;
+            height: auto;
+        }
+        .qr-container {
+            width: 200px;
+            height: 200px;
+            margin: 20px auto;
+            padding: 10px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .card {
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: none;
+            border-radius: 15px;
+        }
+        .card-title {
+            text-align: center;
+            color: #0d6efd;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        .card-body {
+            background-color: white;
+            border-radius: 15px;
+        }
+        h1 {
+            color: white;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+        .qr-description {
+            text-align: center;
+            color: #6c757d;
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
+        .download-btn {
+            margin-top: 10px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="logo-container">
+            <img src="logo.jpg" alt="ATLAS GENOM KULÜBÜ Logo" class="logo">
+        </div>
+        <h1 class="text-center">ATLAS GENOM KULÜBÜ</h1>
+        
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Kayıt QR Kodu</h5>
+                        <div id="registration-qr" class="qr-container"></div>
+                        <p class="qr-description">Çekilişe kayıt olmak için QR kodu okutun</p>
+                        <button class="btn btn-primary download-btn" onclick="downloadQR('registration-qr', 'kayit-qr.png')">QR Kodu İndir</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Fotoğraf Galerisi QR Kodu</h5>
+                        <div id="gallery-qr" class="qr-container"></div>
+                        <p class="qr-description">Fotoğraf galerisine erişmek için QR kodu okutun</p>
+                        <button class="btn btn-primary download-btn" onclick="downloadQR('gallery-qr', 'galeri-qr.png')">QR Kodu İndir</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <script>
+        // QR kodları oluştur
+        const registrationQR = new QRCode(document.getElementById("registration-qr"), {
+            text: window.location.origin + "/index.html",
+            width: 180,
+            height: 180
+        });
+
+        const galleryQR = new QRCode(document.getElementById("gallery-qr"), {
+            text: window.location.origin + "/rem.html",
+            width: 180,
+            height: 180
+        });
+
+        // QR kodu indirme fonksiyonu
+        function downloadQR(elementId, filename) {
+            const element = document.getElementById(elementId);
+            html2canvas(element).then(canvas => {
+                const link = document.createElement('a');
+                link.download = filename;
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            });
+        }
+    </script>
+</body>
+</html>
